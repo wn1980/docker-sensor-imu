@@ -1,0 +1,24 @@
+version: '2.3'
+
+# create default network
+networks:
+  default:
+    name: ros-network
+
+services:
+
+  imu:
+    build: ./imu
+    image: wn1980/imu-ros${TAG}
+    container_name: ros_imu
+    init: true
+    restart: "no"
+    privileged: true
+    #command: tail -f /dev/null
+    devices:
+      - "/dev:/dev"
+    volumes:
+      - "/dev:/dev"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - ROS_MASTER_URI=http://master:11311    
