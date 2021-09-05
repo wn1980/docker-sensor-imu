@@ -8,7 +8,7 @@ networks:
 services:
 
   imu:
-    build: ./imu
+    build: ./image
     image: wn1980/imu-ros${TAG}
     container_name: ros_imu
     init: true

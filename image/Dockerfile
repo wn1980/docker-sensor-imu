@@ -24,11 +24,11 @@ RUN apt-get update && \
 
 RUN rosdep init && rosdep update
 
-RUN mkdir -p /ws/src && \
-    cd /ws/src && \
+RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
+	mkdir -p /catkin_ws/src && \
+    cd /catkin_ws/src && \
 	git clone https://github.com/LFZ1994/sensor_imu.git && \
-	cd /ws && \
-	source /opt/ros/$ROS_DISTRO/setup.bash && \
+	cd /catkin_ws && \
 	catkin_make
 	#catkin_make install -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO -DCATKIN_ENABLE_TESTING=0 && \
 	#cd / && rm -rf /ws
@@ -38,6 +38,8 @@ RUN apt-get purge -y git && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY ./start.launch ./ros_entrypoint.sh /
+#COPY ./start.launch ./ros_entrypoint.sh /
 
-CMD ["roslaunch", "--wait", "start.launch"]
+#CMD ["roslaunch", "--wait", "start.launch"]
+
+CMD source /catkin_ws/devel/setup.bash && roslaunch sensor_imu sensor_imu.launch
