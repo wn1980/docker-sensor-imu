@@ -3,7 +3,8 @@ version: '2.3'
 # create default network
 networks:
   default:
-    name: ros-network
+    external:
+      name: ros-network
 
 services:
 
