@@ -1,5 +1,5 @@
-#FROM ros:noetic-ros-core-focal
 FROM ros:melodic-ros-core-bionic
+#Now, works on Melodic only
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
@@ -42,8 +42,10 @@ RUN apt-get purge -y \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-#COPY ./sensor_imu.launch /
+COPY ./sensor_imu.launch /
 
 #CMD ["roslaunch", "--wait", "/sensor_imu.launch"]
 
-CMD source /catkin_ws/devel/setup.bash && roslaunch sensor_imu sensor_imu.launch
+#CMD source /catkin_ws/devel/setup.bash && roslaunch sensor_imu sensor_imu.launch
+
+CMD source /catkin_ws/devel/setup.bash && roslaunch /sensor_imu.launch
