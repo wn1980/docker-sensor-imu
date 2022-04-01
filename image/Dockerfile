@@ -1,5 +1,5 @@
-FROM ros:melodic-ros-core-bionic
-#Now, works on Melodic only
+#FROM ros:melodic-ros-core-bionic
+FROM ros:noetic-ros-core-focal
 
 LABEL maintainer="Waipot Ngamsaad <waipotn@hotmail.com>"
 
@@ -18,8 +18,8 @@ RUN apt-get install -y \
 	ros-${ROS_DISTRO}-tf \
 	build-essential \
     git \
-	python-serial \
-	python-rosdep \
+	python3-serial \
+	python3-rosdep \
 	&& apt-get autoremove -y \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
@@ -28,7 +28,7 @@ RUN rosdep init && rosdep update
 
 RUN mkdir -p /catkin_ws/src && \
     cd /catkin_ws/src && \
-	git clone https://github.com/LFZ1994/sensor_imu.git && \
+	git clone https://github.com/LFZ1994/sensor_imu.git -b noetic && \
 	cd /catkin_ws && \
 	source /opt/ros/$ROS_DISTRO/setup.bash && \
 	catkin_make && \
